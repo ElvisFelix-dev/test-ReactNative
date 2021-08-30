@@ -24,10 +24,20 @@ import {
   StatusTitle,
   StatusSubTitle,
   StatusSwitch,
+  TitleInterval,
+  ButtonTypes
 } from './styles';
 
-export function Dashboard() {
+import { Button } from '../../components/Button'
+
+
+export default function Dashboard({navigation}) {
   const [ status, setStatus ] = useState(false)
+  const [ pressButton, setPressButton ] = useState(false)
+
+  function  handleSelectTime(type: boolean) {
+    setPressButton(type)
+  }
 
   return (
     <Container>
@@ -43,7 +53,9 @@ export function Dashboard() {
 
           </UserInfo>
 
-          <StatusButton onPress={() => {}}>
+          <StatusButton
+            onPress={() => navigation.navigate('Status')}
+          >
             <TextStatusButton>Status</TextStatusButton>
           </StatusButton>
         </UserWrapper>
@@ -53,7 +65,7 @@ export function Dashboard() {
         <Image source={compassImg} />
         <InfoStatus>
           <TitleTrancking>My GPS - Trancking</TitleTrancking>
-          <GPSStatus>{status ? 'Online' : 'Offline'}</GPSStatus>
+          <GPSStatus online={status}>{status ? 'Online' : 'Offline'}</GPSStatus>
         </InfoStatus>
       </MainStatus>
       <Separator />
@@ -70,6 +82,34 @@ export function Dashboard() {
           thumbColor={status ? '#12A454' : '#E83F5B'}
         />
       </StatusService>
+
+      <TitleInterval>Intervalo de comunicação</TitleInterval>
+
+      <ButtonTypes>
+        <Button
+          title='10s'
+          online={false}
+          onPress={() => handleSelectTime(false)}
+        />
+
+        <Button
+          title='5s'
+          online={false}
+          onPress={() => handleSelectTime(true)}
+        />
+
+        <Button
+          online={false}
+          title='3s'
+          onPress={() => handleSelectTime(true)}
+        />
+
+        <Button
+          online={false}
+          title='1s'
+          onPress={() => handleSelectTime(true)}
+        />
+      </ButtonTypes>
 
     </Container>
   );

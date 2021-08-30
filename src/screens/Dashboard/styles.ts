@@ -1,6 +1,11 @@
-import styled from 'styled-components/native';
+import styled, { css } from 'styled-components/native';
 import { RFPercentage, RFValue } from 'react-native-responsive-fontsize';
 import { getBottomSpace, getStatusBarHeight } from 'react-native-iphone-x-helper';
+
+interface GPSStatusProps {
+  online: boolean
+}
+
 
 export const Container = styled.View`
   flex: 1;
@@ -98,8 +103,10 @@ export const TitleTrancking = styled.Text`
   font-family: ${({ theme }) => theme.fonts.regular};
 `;
 
-export const GPSStatus = styled.Text`
-  color: ${({ theme }) => theme.colors.success};
+export const GPSStatus = styled.Text<GPSStatusProps>`
+  color: ${({ theme, online }) =>
+    online ? theme.colors.success : theme.colors.attention
+  };
 
   font-size: ${RFValue(18)}px;
   font-family: ${({ theme }) => theme.fonts.medium};
@@ -145,14 +152,29 @@ export const StatusSubTitle = styled.Text`
   font-family: ${({ theme }) => theme.fonts.regular};
 `;
 
-export const StatusSwitch = styled.Switch.attrs({
-
-})`
+export const StatusSwitch = styled.Switch`
 
 `;
 
 export const ContainerStatus = styled.View`
 
+`;
+
+export const TitleInterval = styled.Text`
+  color: ${({ theme }) => theme.colors.title};
+
+  font-size: ${RFValue(20)}px;
+  font-family: ${({ theme }) => theme.fonts.regular};
+
+  padding: 0 24px;
+  margin-top: ${ getStatusBarHeight() + RFValue(10)}px;
+`;
+
+export const ButtonTypes = styled.View`
+  flex-direction: row;
+  justify-content: space-between;
+
+  margin: 10px 25px;
 `;
 
 
